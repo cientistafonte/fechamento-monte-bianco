@@ -53,6 +53,14 @@ jobs:
             Monte Bianco MFO
           attachments: saida/fechamento-mais-recente.png
 
+      - name: Enviar no Telegram
+        run: |
+          curl -s -X POST \
+            "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendPhoto" \
+            -F chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
+            -F photo="@saida/fechamento-mais-recente.png" \
+            -F caption="Fechamento de Mercado do dia - Monte Bianco MFO"
+
       - name: Salvar como artefato
         uses: actions/upload-artifact@v4
         with:
