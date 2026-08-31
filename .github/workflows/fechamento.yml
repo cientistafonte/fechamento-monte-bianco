@@ -36,6 +36,23 @@ jobs:
           git commit -m "Fechamento de mercado" || echo "Nada novo para commitar"
           git push
 
+      - name: Enviar por e-mail
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.EMAIL_USUARIO }}
+          password: ${{ secrets.EMAIL_SENHA }}
+          from: Monte Bianco MFO <${{ secrets.EMAIL_USUARIO }}>
+          to: ${{ secrets.EMAIL_DESTINO }}
+          subject: Fechamento de Mercado do dia
+          body: |
+            Segue em anexo a imagem do fechamento de mercado gerada automaticamente.
+
+            Monte Bianco MFO
+          attachments: saida/fechamento-mais-recente.png
+
       - name: Salvar como artefato
         uses: actions/upload-artifact@v4
         with:
