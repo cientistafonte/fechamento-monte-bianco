@@ -1,1 +1,44 @@
+name: Gerar Fechamento de Mercado
 
+on:
+  schedule:
+    - cron: "30 21 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  gerar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar o repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependencias
+        run: |
+          pip install yfinance playwright
+          playwright install --with-deps chromium
+
+      - name: Gerar a imagem de fechamento
+        run: python gerar_fechamento.py
+
+      - name: Publicar a imagem no repositorio
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add saida/*.png
+          git commit -m "Fechamento de mercado" || echo "Nada novo para commitar"
+          git push
+
+      - name: Salvar como artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: fechamento-do-dia
+          path: saida/fechamento-mais-recente.png
+          retention-days: 14
