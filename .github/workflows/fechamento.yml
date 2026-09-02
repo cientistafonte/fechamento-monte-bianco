@@ -2,7 +2,10 @@ name: Gerar Fechamento de Mercado
 
 on:
   schedule:
-    - cron: "30 21 * * 1-5"
+    # 20:30 UTC = 17:30 no horário de Brasília.
+    # Perto do fechamento da B3 (18h), com folga para o agendador do
+    # GitHub, que pode atrasar 1-2h em horários de pico.
+    - cron: "30 20 * * 1-5"
   workflow_dispatch:
 
 permissions:
