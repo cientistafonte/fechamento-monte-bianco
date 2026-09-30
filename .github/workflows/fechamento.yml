@@ -1,11 +1,6 @@
 name: Gerar Fechamento de Mercado
 
 on:
-  schedule:
-    # 20:30 UTC = 17:30 no horário de Brasília.
-    # Perto do fechamento da B3 (18h), com folga para o agendador do
-    # GitHub, que pode atrasar 1-2h em horários de pico.
-    - cron: "30 20 * * 1-5"
   workflow_dispatch:
 
 permissions:
@@ -47,13 +42,13 @@ jobs:
           secure: true
           username: ${{ secrets.EMAIL_USUARIO }}
           password: ${{ secrets.EMAIL_SENHA }}
-          from: Monte Bianco MFO <${{ secrets.EMAIL_USUARIO }}>
+          from: Monte Bianco <${{ secrets.EMAIL_USUARIO }}>
           to: ${{ secrets.EMAIL_DESTINO }}
           subject: Fechamento de Mercado do dia
           body: |
-            Segue em anexo a imagem do fechamento de mercado gerada automaticamente.
+            Segue em anexo a imagem do fechamento de mercado.
 
-            Monte Bianco MFO
+            Monte Bianco
           attachments: saida/fechamento-mais-recente.png
 
       - name: Enviar no Telegram
@@ -62,7 +57,7 @@ jobs:
             "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendPhoto" \
             -F chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
             -F photo="@saida/fechamento-mais-recente.png" \
-            -F caption="Fechamento de Mercado do dia - Monte Bianco MFO"
+            -F caption="Fechamento de Mercado - Monte Bianco"
 
       - name: Salvar como artefato
         uses: actions/upload-artifact@v4
