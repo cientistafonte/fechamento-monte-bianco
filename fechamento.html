@@ -12,6 +12,9 @@
     --mb-azul:#03305A;
     --mb-base:#1D5A90;
     --mb-claro:#8FB6D6;
+    --escuro-1:#000000;
+    --escuro-2:#04121F;
+    --cinza:#8A94A0;
     --linha:rgba(255,255,255,0.16);
     --alta:#3FBF8F;
     --baixa:#F2705D;
@@ -20,7 +23,7 @@
   body{margin:0; font-family:'Inter',sans-serif; background:#eef1f5; color:#0d1b2a; display:flex; min-height:100vh;}
   .workspace{display:flex; width:100%; flex-wrap:wrap;}
 
-  /* ---------- Painel ---------- */
+  /* ---------- Painel de edição ---------- */
   .panel{width:440px; max-width:100%; background:#fbfcfd; padding:28px 26px 60px; border-right:1px solid #d8e0e8; overflow-y:auto; max-height:100vh;}
   .panel h1{font-size:21px; margin:0 0 4px; color:var(--mb-azul); font-weight:700;}
   .panel .sub{font-size:13px; color:#5b6b7c; margin:0 0 22px; line-height:1.5;}
@@ -50,36 +53,42 @@
     font-family:'Inter',sans-serif;
     display:flex; flex-direction:column;
   }
-  .peaks{position:absolute; bottom:0; left:0; width:1080px; height:420px; opacity:.045;}
+  .peaks{position:absolute; bottom:0; left:0; width:1080px; height:420px; opacity:.055;}
 
-  /* topo */
-  .head{padding:76px 72px 0; position:relative; z-index:2;}
-  .titulo{font-size:90px; line-height:1.0; font-weight:800; margin:0; letter-spacing:-0.025em;}
-  .titulo span{display:block; font-weight:400; color:var(--mb-claro);}
-  .datebadge{display:inline-block; margin-top:30px; font-size:29px; font-weight:600; color:var(--mb-claro); letter-spacing:.01em;}
-
-  /* gráfico */
-  .chart-card{
-    margin:86px 72px 0; padding:32px 34px 22px;
-    background:rgba(255,255,255,0.07);
-    border:1px solid var(--linha); border-radius:22px;
-    position:relative; z-index:2;
+  /* ---------- Painel escuro (herói) ---------- */
+  .hero{
+    background:linear-gradient(180deg, var(--escuro-1) 0%, #020C16 45%, var(--escuro-2) 100%);
+    border-radius:0 0 42px 42px;
+    padding:78px 72px 34px;
+    position:relative; z-index:3;
+    flex:none;
   }
-  .chart-top{display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:24px;}
-  .chart-name{font-size:39px; font-weight:700;}
-  .chart-sub{font-size:25px; color:var(--mb-claro); font-weight:500; margin-top:5px;}
-  .chart-right{text-align:right;}
-  .chart-val{font-size:56px; font-weight:800; font-variant-numeric:tabular-nums; line-height:1;}
-  .chart-chg{font-size:36px; font-weight:700; font-variant-numeric:tabular-nums; margin-top:7px;}
-  .chart-chg.up{color:var(--alta);} .chart-chg.down{color:var(--baixa);}
-  #ewzSvg{display:block; width:100%; height:206px;}
-  .chart-foot{display:flex; justify-content:space-between; white-space:nowrap; gap:20px; font-size:25px; color:var(--mb-claro); letter-spacing:.03em; margin-top:16px;}
+  .hero-top{display:flex; align-items:baseline; justify-content:space-between; gap:24px;}
+  .eyebrow{font-size:27px; letter-spacing:.2em; text-transform:uppercase; color:var(--cinza); font-weight:700;}
+  .hdate{font-size:28px; font-weight:700; color:#fff; white-space:nowrap;}
 
-  /* barras */
-  .bars-wrap{margin:86px 72px 0; position:relative; z-index:2; flex:1; display:flex; flex-direction:column; min-height:0;}
+  .hero-title{margin:30px 0 0; font-size:62px; line-height:1; letter-spacing:-0.02em; font-weight:400; color:#98A2AE;}
+  .hero-title b{font-weight:800; color:#fff;}
+
+  .hero-nums{display:flex; align-items:flex-end; justify-content:space-between; gap:24px; margin-top:6px;}
+  .valor{display:flex; align-items:baseline; gap:10px;}
+  .valor .cur{font-size:46px; font-weight:700; color:var(--cinza);}
+  .valor .big{font-size:132px; font-weight:800; color:#fff; letter-spacing:-0.035em; line-height:1;}
+  .hero-right{text-align:right; padding-bottom:12px;}
+  .hero-chg{font-size:54px; font-weight:700; font-variant-numeric:tabular-nums; line-height:1;}
+  .hero-chg.up{color:var(--alta);} .hero-chg.down{color:var(--baixa);}
+  .hero-per{font-size:27px; color:var(--cinza); margin-top:10px; white-space:nowrap;}
+  .ticker{font-size:29px; color:var(--cinza); margin-top:4px;}
+
+  #ewzSvg{display:block; width:100%; height:300px; margin-top:16px;}
+  .minmax{display:flex; justify-content:space-between; font-size:26px; color:var(--cinza); margin-top:6px;}
+
+  /* ---------- Barras ---------- */
+  .bars-wrap{margin:54px 72px 0; position:relative; z-index:2; flex:1; display:flex; flex-direction:column; min-height:0;}
   .bars-head{display:flex; justify-content:space-between; align-items:baseline; padding-bottom:18px; border-bottom:1px solid rgba(255,255,255,0.32); margin-bottom:6px;}
   .bars-head .t{font-size:27px; letter-spacing:.18em; text-transform:uppercase; color:var(--mb-claro); font-weight:700;}
-  .bars-head .s{font-size:22px; color:rgba(255,255,255,0.55);}
+  .bars-head .s{font-size:24px; font-weight:600;}
+  .bars-head .s .up{color:var(--alta);} .bars-head .s .down{color:var(--baixa);} .bars-head .s .sep{color:rgba(255,255,255,0.45);}
   #bars{flex:1; display:flex; flex-direction:column; min-height:0;}
 
   .bar-row{flex:1 1 0; min-height:0; display:flex; align-items:center; gap:16px; position:relative;}
@@ -93,9 +102,9 @@
   .bar-pct.up{color:var(--alta);} .bar-pct.down{color:var(--baixa);}
   .bar-val{width:200px; flex:none; text-align:right; color:rgba(255,255,255,0.72); font-variant-numeric:tabular-nums;}
 
-  /* rodapé */
-  .footer{padding:66px 72px 84px; position:relative; z-index:2;}
-  .rule{height:1px; width:100%; background:rgba(255,255,255,0.28); margin-bottom:36px;}
+  /* ---------- Rodapé ---------- */
+  .footer{padding:60px 72px 80px; position:relative; z-index:2;}
+  .rule{height:1px; width:100%; background:rgba(255,255,255,0.28); margin-bottom:34px;}
   .sig{display:flex; flex-direction:column; align-items:center; gap:16px;}
   .sig img.logo{height:66px; width:auto; object-fit:contain;}
   .sig .lema{font-size:22px; color:rgba(255,255,255,0.55);}
@@ -106,7 +115,7 @@
 
   <div class="panel">
     <h1>Fechamento de Mercado · Story</h1>
-    <p class="sub">Formato 1080×1920. As variações viram barras ordenadas da maior para a menor automaticamente.</p>
+    <p class="sub">1080×1920. Painel escuro no topo com o EWZ em destaque; abaixo, as variações em barras ordenadas.</p>
 
     <div class="group-label">Importar do robô</div>
     <p class="hint" style="margin-top:8px">Cole o JSON do script (data, ewz, ativos).</p>
@@ -117,10 +126,10 @@
     <label>Data (exibida no card)</label>
     <input type="text" id="pDate" value="">
 
-    <div class="group-label">Gráfico — Ibovespa em dólar (EWZ)</div>
+    <div class="group-label">Destaque — Ibovespa em dólar (EWZ)</div>
     <div class="asset-row" style="grid-template-columns:1fr 1fr;">
-      <div><label style="margin-top:8px">Valor (US$)</label><input type="text" id="ewzVal" value="29,01"></div>
-      <div><label style="margin-top:8px">Variação do dia</label><input type="text" id="ewzChg" value="+0,83%"></div>
+      <div><label style="margin-top:8px">Valor (US$)</label><input type="text" id="ewzVal" value="29,10"></div>
+      <div><label style="margin-top:8px">Variação do dia</label><input type="text" id="ewzChg" value="-0,14%"></div>
     </div>
     <label>Série de fechamentos (separada por vírgula)</label>
     <textarea id="ewzSerie" style="min-height:64px; font-family:monospace; font-size:11.5px;"></textarea>
@@ -143,30 +152,32 @@
             <polygon points="520,420 800,205 1080,420" fill="#FFFFFF" opacity="0.6"/>
           </svg>
 
-          <div class="head">
-            <h1 class="titulo">Fechamento<span>de Mercado</span></h1>
-            <div class="datebadge" id="outDate">—</div>
-          </div>
+          <div class="hero">
+            <div class="hero-top">
+              <span class="eyebrow">Fechamento de Mercado</span>
+              <span class="hdate" id="outDate">—</span>
+            </div>
 
-          <div class="chart-card">
-            <div class="chart-top">
-              <div>
-                <div class="chart-name">Ibovespa em dólar</div>
-                <div class="chart-sub">EWZ · iShares MSCI Brazil ETF</div>
-              </div>
-              <div class="chart-right">
-                <div class="chart-val" id="outEwzVal">—</div>
-                <div class="chart-chg" id="outEwzChg">—</div>
+            <h1 class="hero-title"><b>Ibovespa</b> em dólar</h1>
+
+            <div class="hero-nums">
+              <div class="valor"><span class="cur">US$</span><span class="big" id="outEwzVal">—</span></div>
+              <div class="hero-right">
+                <div class="hero-chg" id="outEwzChg">—</div>
+                <div class="hero-per" id="outEwzPer">—</div>
               </div>
             </div>
-            <svg id="ewzSvg" viewBox="0 0 900 206" preserveAspectRatio="none"></svg>
-            <div class="chart-foot"><span id="ewzIni">—</span><span id="ewzFim">—</span></div>
+
+            <div class="ticker">EWZ · iShares MSCI Brazil ETF</div>
+
+            <svg id="ewzSvg" viewBox="0 0 960 300" preserveAspectRatio="none"></svg>
+            <div class="minmax"><span id="ewzMin">—</span><span id="ewzMax">—</span></div>
           </div>
 
           <div class="bars-wrap">
             <div class="bars-head">
               <span class="t">Variação do dia</span>
-              <span class="s">maior → menor</span>
+              <span class="s" id="outContador">—</span>
             </div>
             <div id="bars"></div>
           </div>
@@ -201,8 +212,8 @@ const assets = [
   {name:"Petróleo Brent",  value:"78,10",   chg:"-0,90%"}
 ];
 
-let ewzSerie = [26.9,27.1,26.8,27.4,27.2,27.8,28.1,27.9,28.4,28.2,
-                28.0,28.5,28.3,28.8,28.6,29.0,28.7,28.9,28.5,29.01];
+let ewzSerie = [26.97,27.10,26.99,27.35,27.20,27.62,27.48,27.85,27.70,28.05,
+                27.92,28.20,28.05,28.35,28.22,28.55,28.40,28.70,28.55,29.10];
 
 const DIAS=["Domingo","Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado"];
 const MESES=["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
@@ -210,7 +221,6 @@ function dataExtenso(){const d=new Date();return `${DIAS[d.getDay()]}, ${String(
 document.getElementById('pDate').value = dataExtenso();
 document.getElementById('ewzSerie').value = ewzSerie.join(', ');
 
-/* número a partir de "+1,60%" */
 function pctNum(s){
   const v = parseFloat(String(s).replace('%','').replace(/\s/g,'').replace(',', '.'));
   return isFinite(v) ? v : 0;
@@ -246,28 +256,41 @@ function renderChart(){
   const svg=document.getElementById('ewzSvg');
   const s=ewzSerie.filter(v=>isFinite(v));
   if(s.length<2){ svg.innerHTML=''; return; }
-  const W=900,H=206,pad=18,padX=10;
+  const W=960,H=300,padT=26,padB=24,padX=10;
   const min=Math.min(...s), max=Math.max(...s), span=(max-min)||1;
   const x=i=>padX+(i/(s.length-1))*(W-padX*2);
-  const y=v=>pad+(1-(v-min)/span)*(H-pad*2);
+  const y=v=>padT+(1-(v-min)/span)*(H-padT-padB);
   const pts=s.map((v,i)=>`${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ');
-  const area=`${padX},${H} ${pts} ${W-padX},${H}`;
+  const area=`${padX},${H} ${pts} ${(W-padX).toFixed(1)},${H}`;
   const subiu = s[s.length-1] >= s[0];
   const cor = subiu ? '#3FBF8F' : '#F2705D';
+  const lx=x(s.length-1).toFixed(1), ly=y(s[s.length-1]).toFixed(1);
+
+  // linhas de grade pontilhadas
+  let grade='';
+  for(let k=1;k<=3;k++){
+    const gy=(padT+(H-padT-padB)*k/4).toFixed(1);
+    grade+=`<line x1="${padX}" y1="${gy}" x2="${W-padX}" y2="${gy}" stroke="#FFFFFF" stroke-opacity="0.10" stroke-width="2" stroke-dasharray="3 12"/>`;
+  }
+
   svg.innerHTML=`
     <defs><linearGradient id="gEwz" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="${cor}" stop-opacity="0.34"/>
+      <stop offset="0%" stop-color="${cor}" stop-opacity="0.42"/>
       <stop offset="100%" stop-color="${cor}" stop-opacity="0"/>
     </linearGradient></defs>
+    ${grade}
     <polygon points="${area}" fill="url(#gEwz)"/>
+    <line x1="${lx}" y1="${ly}" x2="${lx}" y2="${H}" stroke="#FFFFFF" stroke-opacity="0.22" stroke-width="2"/>
     <polyline points="${pts}" fill="none" stroke="${cor}" stroke-width="4"
       stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
-    <circle cx="${x(s.length-1).toFixed(1)}" cy="${y(s[s.length-1]).toFixed(1)}" r="7" fill="#FFFFFF"/>`;
+    <circle cx="${lx}" cy="${ly}" r="11" fill="#04121F" stroke="${cor}" stroke-width="3"/>
+    <circle cx="${lx}" cy="${ly}" r="6" fill="#FFFFFF"/>`;
+
   const varPer=((s[s.length-1]/s[0]-1)*100), sinal=varPer>=0?'+':'-';
-  document.getElementById('ewzIni').textContent=
+  document.getElementById('outEwzPer').textContent=
     `${s.length} pregões · ${sinal}${Math.abs(varPer).toFixed(2).replace('.',',')}%`;
-  document.getElementById('ewzFim').textContent=
-    `mín. ${min.toFixed(2).replace('.',',')} · máx. ${max.toFixed(2).replace('.',',')}`;
+  document.getElementById('ewzMin').textContent=`mín. ${min.toFixed(2).replace('.',',')}`;
+  document.getElementById('ewzMax').textContent=`máx. ${max.toFixed(2).replace('.',',')}`;
 }
 
 /* ---------------- barras ---------------- */
@@ -281,12 +304,16 @@ function renderBars(){
   const maxPos=Math.max(0, ...vals);
   const maxNeg=Math.max(0, ...vals.map(v=>-v));
   const total=(maxPos+maxNeg)||1;
+  const rotulo=13;
+  const util=100 - rotulo*(maxPos>0?1:0) - rotulo*(maxNeg>0?1:0);
+  const zero=(maxNeg>0?rotulo:0) + (maxNeg/total)*util;
 
-  // espaço reservado para o rótulo de % ao fim de cada barra
-  const rotulo = 13;                      // % da trilha
-  const util   = 100 - rotulo*(maxPos>0?1:0) - rotulo*(maxNeg>0?1:0);
-  // posição da linha do zero dentro da trilha
-  const zero   = (maxNeg>0?rotulo:0) + (maxNeg/total)*util;
+  // contador de alta / baixa
+  const alta=vals.filter(v=>v>0).length, baixa=vals.filter(v=>v<0).length;
+  const partes=[];
+  if(alta)  partes.push(`<span class="up">${alta} em alta</span>`);
+  if(baixa) partes.push(`<span class="down">${baixa} em baixa</span>`);
+  document.getElementById('outContador').innerHTML = partes.join('<span class="sep"> · </span>');
 
   document.getElementById('bars').innerHTML=ordenado.map(a=>{
     const v=pctNum(a.chg);
@@ -313,12 +340,11 @@ function renderBars(){
 /* ---------------- card ---------------- */
 function renderCard(){
   document.getElementById('outDate').textContent=document.getElementById('pDate').value;
-  const ev=document.getElementById('ewzVal').value.trim();
-  document.getElementById('outEwzVal').textContent = ev.startsWith('US$')?ev:('US$ '+ev);
+  document.getElementById('outEwzVal').textContent=document.getElementById('ewzVal').value.trim().replace(/^US\$\s*/,'');
   const ec=document.getElementById('ewzChg').value.trim();
   const ecEl=document.getElementById('outEwzChg');
   const ecDown=ec.startsWith('-');
-  ecEl.className='chart-chg '+(ecDown?'down':'up');
+  ecEl.className='hero-chg '+(ecDown?'down':'up');
   ecEl.textContent=(ecDown?'▼ ':'▲ ')+ec;
   renderBars();
   renderChart();
